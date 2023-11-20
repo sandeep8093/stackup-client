@@ -5,7 +5,7 @@ import {publicRequest,userRequest} from '../requestMethods';
 //Add Post
 export const addPost = (postData)=>async dispatch=>{
     try{
-        const res = await axios.post('https://stack-up-app.herokuapp.com/api/posts',postData);
+        const res = await axios.post('https://stackup-server.onrender.com/api/posts',postData);
         dispatch({
             type: ADD_POST,
             payload: res.data
@@ -19,10 +19,10 @@ export const addPost = (postData)=>async dispatch=>{
 }
 
 //Get Posts
-export const getPosts = ()=>async dispatch=>{
+export const getPosts = (search)=>async dispatch=>{
     try{
         dispatch(setPostLoading());
-        const res = await axios.get(`https://stack-up-app.herokuapp.com/api/posts`);
+        const res = await axios.get(`https://stackup-server.onrender.com/api/posts/${search ? `?search=${search}` : ''}`);
         dispatch({
             type: GET_POSTS,
             payload: res.data
@@ -39,7 +39,7 @@ export const getPosts = ()=>async dispatch=>{
 //LIKE a Post
 export const addLike = (id)=>async dispatch=>{
     try{
-        const res = await axios.put(`https://stack-up-app.herokuapp.com/api/posts/like/${id}`);
+        const res = await axios.put(`https://stackup-server.onrender.com/api/posts/like/${id}`);
         dispatch(getPosts())
         console.log(res.data)
     }catch(err){
@@ -53,7 +53,7 @@ export const addLike = (id)=>async dispatch=>{
 //UNLIKE a Post
 export const removeLike = (id)=>async dispatch=>{
     try{
-        const res = await axios.put(`https://stack-up-app.herokuapp.com/api/posts/unlike/${id}`);
+        const res = await axios.put(`https://stackup-server.onrender.com/api/posts/unlike/${id}`);
         dispatch(getPosts())
         console.log(res.data)
     }catch(err){
@@ -68,7 +68,7 @@ export const removeLike = (id)=>async dispatch=>{
 export const getPost = (id)=>async dispatch=>{
     try{
         dispatch(setPostLoading());
-        const res = await axios.get(`https://stack-up-app.herokuapp.com/api/posts/${id}`);
+        const res = await axios.get(`https://stackup-server.onrender.com/api/posts/${id}`);
         dispatch({
             type: GET_POST,
             payload: res.data
@@ -84,7 +84,7 @@ export const getPost = (id)=>async dispatch=>{
 //Add Comment in a post
 export const addComment = (postId, commentData)=>async dispatch=>{
     try{
-        const res = await axios.post(`https://stack-up-app.herokuapp.com/api/posts/comment/${postId}`,commentData);
+        const res = await axios.post(`https://stackup-server.onrender.com/api/posts/comment/${postId}`,commentData);
         dispatch({
             type: GET_POST,
             payload: res.data
@@ -101,7 +101,7 @@ export const addComment = (postId, commentData)=>async dispatch=>{
 //Delete Post
 export const deletePost = (id)=>async dispatch=>{
     try{
-        await axios.delete(`https://stack-up-app.herokuapp.com/api/posts/${id}`);
+        await axios.delete(`https://stackup-server.onrender.com/api/posts/${id}`);
         dispatch({
             type: DELETE_POST,
             payload: id //send id to reducer to delete post

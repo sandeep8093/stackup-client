@@ -54,7 +54,7 @@ if(localStorage.jwtToken){
 
 class App extends Component {
   render(){
-    fetch("https://stack-up-app.herokuapp.com").then(console.log("hii"))
+    fetch("https://stackup-server.onrender.com").then(console.log("hii"))
   return (
     <Provider store={ store }>
         <Router>
